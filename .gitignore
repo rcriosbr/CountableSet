@@ -1,1 +1,7 @@
 /target/
+/target/classes/META-INF/maven/br.com.rcrios/CountableSet/pom.xml
+/target/classes/META-INF/maven/br.com.rcrios/CountableSet/pom.properties
+/.classpath
+/.project
+/.settings
+/bin/

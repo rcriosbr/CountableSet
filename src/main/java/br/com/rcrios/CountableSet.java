@@ -212,7 +212,7 @@ public class CountableSet<E> extends AbstractSet<E> implements Set<E>, Cloneable
     * @return {@code Null} if the element doen't exist into this set. Otherwise returns a {@code Map<E, Integer>(1)}
     *         whose {@code key} is the element itself, and {@code value} is the count of that element.
     */
-   public Map<E, Integer> get(E e) {
+   public Map<E, Integer> getRaw(E e) {
       Integer count = this.elements.get(e);
 
       if (count == null) {
@@ -223,6 +223,20 @@ public class CountableSet<E> extends AbstractSet<E> implements Set<E>, Cloneable
       m.put(e, count);
 
       return m;
+   }
+
+   /**
+    * Returns the count to which the specified element is mapped, or null if this set doesn't contains the key.
+    *
+    * More formally, if backing map contains a mapping from a key k to a value v such that (key==null ? k==null
+    * :key.equals(k)), then this method returns v; otherwise it returns null.
+    *
+    * @param e Element from which the count will be retrieved
+    *
+    * @return {@code Null} if the element doesn't exist, or an {@code Integer} with its count
+    */
+   public Integer get(E e) {
+      return this.elements.get(e);
    }
 
    @Override

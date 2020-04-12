@@ -29,15 +29,17 @@ public class CountableSetTest {
       assertTrue(cs.size() == 1);
       assertTrue(cs.lenght() == 1);
 
-      Map<String, Integer> m = cs.get(e1);
+      Map<String, Integer> m = cs.getRaw(e1);
       assertTrue(m.get(e1) == 1);
+      assertTrue(cs.get("e1") == 1);
 
       cs.add("e1");
       assertTrue(cs.size() == 1);
       assertTrue(cs.lenght() == 2);
 
-      m = cs.get(e1);
+      m = cs.getRaw(e1);
       assertTrue(m.get(e1) == 2);
+      assertTrue(cs.get("e1") == 2);
    }
 
    @Test
@@ -55,12 +57,12 @@ public class CountableSetTest {
       assertTrue(cs.remove(e1));
       assertTrue(cs.size() == 2);
 
-      Map<String, Integer> m = cs.get(e1);
+      Map<String, Integer> m = cs.getRaw(e1);
       assertTrue(m.get(e1) == 1);
       assertTrue(cs.remove(e1));
       assertTrue(cs.size() == 1);
 
-      m = cs.get(e2);
+      m = cs.getRaw(e2);
       assertTrue(m.get(e2) == 1);
 
       cs.remove(e2);
@@ -98,13 +100,13 @@ public class CountableSetTest {
       assertTrue(cs.size() == 3);
       assertTrue(cs.lenght() == 5);
 
-      Map<String, Integer> m = cs.get("e1");
+      Map<String, Integer> m = cs.getRaw("e1");
       assertTrue(m.get("e1") == 2);
 
-      m = cs.get("e2");
+      m = cs.getRaw("e2");
       assertTrue(m.get("e2") == 1);
 
-      m = cs.get("e3");
+      m = cs.getRaw("e3");
       assertTrue(m.get("e3") == 2);
 
       List<String> empty = Collections.emptyList();
