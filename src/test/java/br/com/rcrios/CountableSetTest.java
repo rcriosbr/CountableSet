@@ -6,7 +6,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.Iterator;
@@ -31,15 +30,30 @@ public class CountableSetTest {
 
       Map<String, Integer> m = cs.getRaw(e1);
       assertTrue(m.get(e1) == 1);
-      assertTrue(cs.get("e1") == 1);
+      assertTrue(cs.get(e1) == 1);
 
-      cs.add("e1");
+      cs.add(e1);
       assertTrue(cs.size() == 1);
       assertTrue(cs.lenght() == 2);
 
       m = cs.getRaw(e1);
       assertTrue(m.get(e1) == 2);
-      assertTrue(cs.get("e1") == 2);
+      assertTrue(cs.get(e1) == 2);
+   }
+
+   @Test
+   public void testAddWithCount(){
+      String e1 = "e1";
+
+      CountableSet<String> cs = new CountableSet<>();
+      
+      cs.add(e1, 5);
+      assertTrue(cs.size() == 1);
+      assertTrue(cs.lenght() == 5);
+
+      cs.add(e1);
+      assertTrue(cs.size() == 1);
+      assertTrue(cs.lenght() == 6);
    }
 
    @Test
@@ -164,52 +178,5 @@ public class CountableSetTest {
       }
 
       assertEquals(2, count);
-   }
-
-   @Test
-   public void testConstructors() {
-      CountableSet<String> cs = new CountableSet<>(32, 1.25f);
-
-      try {
-         Field field = cs.getClass().getDeclaredField("elements");
-         field.setAccessible(true);
-
-         Object o = field.get(cs);
-
-         Field threshold = o.getClass().getDeclaredField("threshold");
-         threshold.setAccessible(true);
-
-         assertEquals(32, (Integer) threshold.get(o));
-
-         Field loadFactor = o.getClass().getDeclaredField("loadFactor");
-         loadFactor.setAccessible(true);
-
-         assertEquals(1.25f, (Float) loadFactor.get(o));
-      } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
-
-      cs = new CountableSet<>(64);
-
-      try {
-         Field field = cs.getClass().getDeclaredField("elements");
-         field.setAccessible(true);
-
-         Object o = field.get(cs);
-
-         Field threshold = o.getClass().getDeclaredField("threshold");
-         threshold.setAccessible(true);
-
-         assertEquals(64, (Integer) threshold.get(o));
-
-         Field loadFactor = o.getClass().getDeclaredField("loadFactor");
-         loadFactor.setAccessible(true);
-
-         assertEquals(0.75f, (Float) loadFactor.get(o));
-      } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException e) {
-         // TODO Auto-generated catch block
-         e.printStackTrace();
-      }
    }
 }

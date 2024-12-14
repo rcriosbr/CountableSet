@@ -11,7 +11,6 @@ import java.util.LinkedHashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * Specialized {@code Set} that keeps a count of its elements. For example, when adding the same element {@code e1}
@@ -34,7 +33,7 @@ import java.util.Set;
  *
  * @param <E> the type of elements maintained by this set
  */
-public class CountableSet<E> extends AbstractSet<E> implements Set<E>, Cloneable, Serializable {
+public class CountableSet<E> extends AbstractSet<E> implements Cloneable, Serializable {
 
    private static final long serialVersionUID = 7486882967017248953L;
 
@@ -101,6 +100,23 @@ public class CountableSet<E> extends AbstractSet<E> implements Set<E>, Cloneable
          count++;
       }
       this.elements.put(e, count);
+
+      return true;
+   }
+
+   /**
+    * Adds the specified element to this {@code CountableSet} with the specified count. If this set already contains
+    * the element, increments element count, keeping the set size unaltered.
+    *
+    * @return Will always return {@code true}
+    */
+   public boolean add(E e, int count) {
+      Integer currentCount = this.elements.get(e);
+      if (currentCount == null) {
+         currentCount = 0;
+      }
+
+      this.elements.put(e, currentCount + count);
 
       return true;
    }
